@@ -30,7 +30,7 @@ use warnings;
 
 
 sub status() {
-    return APH_RET_CONT;
+    return ADH_RET_CONT;
 }
 
 1;
