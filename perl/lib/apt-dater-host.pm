@@ -38,18 +38,20 @@ use constant {
 require Exporter;
 our @ISA = qw(Exporter);
 
+our @EXPORT = qw(
+    adh_refresh
+    adh_upgrade
+    adh_install
+    adh_status
+
+    ADH_RET_CONT
+    ADH_RET_LAST
+    ADH_RET_ERROR
+);
+
 our @EXPORT_OK = qw(
     adh_register_iv
     adh_register_pm
-
-    aph_refresh
-    aph_upgrade
-    aph_install
-    aph_status
-
-    APH_RET_CONT
-    APH_RET_LAST
-    APH_RET_ERROR
 );
 
 our $VERSION = '1.0.0';
@@ -61,21 +63,21 @@ sub get_libexecdir() {
 my %ivs;
 my %pms;
 
-sub aph_register_iv($) {
+sub adh_register_iv($) {
     my $iv = shift || return;
 
     push(@ivs, $iv);
 }
 
-sub aph_register_pm($) {
+sub adh_register_pm($) {
     my $pm = shift || return;
 
     push(@pms, $pm);
 }
 
 
-sub aph_refresh() {
-    aph_init_pm() unless (@pms);
+sub adh_refresh() {
+    adh_init_pm() unless (@pms);
 
     foreach my $pm (@pms) {
 	eval "${pm}::refresh();";
@@ -83,8 +85,8 @@ sub aph_refresh() {
     }
 }
 
-sub aph_upgrade() {
-    aph_init_pm() unless (@pms);
+sub adh_upgrade() {
+    adh_init_pm() unless (@pms);
 
     foreach my $pm (@pms) {
 	eval "${pm}::upgrade();";
@@ -92,8 +94,8 @@ sub aph_upgrade() {
     }
 }
 
-sub aph_install($) {
-    aph_init_pm() unless (@pms);
+sub adh_install($) {
+    adh_init_pm() unless (@pms);
 
     foreach my $pm (@pms) {
 	eval "${pm}::install(@_);";
@@ -101,9 +103,9 @@ sub aph_install($) {
     }
 }
 
-sub aph_status() {
-    aph_init_iv() unless (@ivs);
-    aph_init_pm() unless (@pms);
+sub adh_status() {
+    adh_init_iv() unless (@ivs);
+    adh_init_pm() unless (@pms);
 
     foreach my $m (@ivs, @pms) {
 	eval "${m}::status();";
@@ -112,7 +114,7 @@ sub aph_status() {
 }
 
 
-sub aph_init_iv() {
+sub adh_init_iv() {
     # autoload IV modules
     foreach my $module (findsubmod __PACKAGE__::IV) {
 	eval "use $module;";
@@ -120,7 +122,7 @@ sub aph_init_iv() {
     }
 }
 
-sub aph_init_pm() {
+sub adh_init_pm() {
     # autoload PM modules
     foreach my $module (findsubmod __PACKAGE__::PM) {
 	eval "use $module;";
