@@ -44,6 +44,8 @@ our @EXPORT_OK = qw(
 
     aph_refresh
     aph_upgrade
+    aph_install
+    aph_status
 
     APH_RET_CONT
     APH_RET_LAST
@@ -76,8 +78,8 @@ sub aph_refresh() {
     aph_init_pm() unless (@pms);
 
     foreach my $pm (@pms) {
-	eval "${vmd}::refresh();";
-	die "Error in ${vmd}::refresh(): $@\n" if $@;
+	eval "${pm}::refresh();";
+	die "Error in ${pm}::refresh(): $@\n" if $@;
     }
 }
 
@@ -85,8 +87,27 @@ sub aph_upgrade() {
     aph_init_pm() unless (@pms);
 
     foreach my $pm (@pms) {
-	eval "${vmd}::upgrade();";
-	die "Error in ${vmd}::upgrade(): $@\n" if $@;
+	eval "${pm}::upgrade();";
+	die "Error in ${pm}::upgrade(): $@\n" if $@;
+    }
+}
+
+sub aph_install($) {
+    aph_init_pm() unless (@pms);
+
+    foreach my $pm (@pms) {
+	eval "${pm}::install(@_);";
+	die "Error in ${pm}::install(): $@\n" if $@;
+    }
+}
+
+sub aph_status() {
+    aph_init_iv() unless (@ivs);
+    aph_init_pm() unless (@pms);
+
+    foreach my $m (@ivs, @pms) {
+	eval "${m}::status();";
+	die "Error in ${m}::status(): $@\n" if $@;
     }
 }
 
