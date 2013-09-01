@@ -28,7 +28,7 @@ package apt-dater-host::PM::Generic;
 use strict;
 use warnings;
 
-use apt-dater-host;
+use apt-dater-host qw(:backend);
 
 sub refresh() {
     return ADH_RET_CONT;

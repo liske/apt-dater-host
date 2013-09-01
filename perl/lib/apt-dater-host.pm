@@ -43,15 +43,26 @@ our @EXPORT = qw(
     adh_upgrade
     adh_install
     adh_status
+);
+
+our @EXPORT_OK = qw(
+    adh_register_iv
+    adh_register_pm
 
     ADH_RET_CONT
     ADH_RET_LAST
     ADH_RET_ERROR
 );
 
-our @EXPORT_OK = qw(
-    adh_register_iv
-    adh_register_pm
+our %EXPORT_TAGS = (
+    backend => [qw(
+	adh_register_iv
+	adh_register_pm
+
+	ADH_RET_CONT
+	ADH_RET_LAST
+	ADH_RET_ERROR
+    )],
 );
 
 our $VERSION = '1.0.0';

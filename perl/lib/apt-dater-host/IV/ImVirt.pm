@@ -30,6 +30,7 @@ use warnings;
 
 use parent qw(apt-dater-host::IV::Generic);
 use ImVirt;
+use apt-dater-host qw(:backend);
 use apt-dater-host::Proto;
 
 sub status() {

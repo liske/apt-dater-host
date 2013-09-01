@@ -28,6 +28,7 @@ package apt-dater-host::IV::Generic;
 use strict;
 use warnings;
 
+use apt-dater-host qw(:backend);
 
 sub status() {
     return ADH_RET_CONT;
