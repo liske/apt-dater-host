@@ -28,21 +28,22 @@ package apt-dater-host::PM::Generic;
 use strict;
 use warnings;
 
+use apt-dater-host;
 
 sub refresh() {
-    return APH_RET_CONT;
+    return ADH_RET_CONT;
 }
 
 sub upgrade() {
-    return APH_RET_CONT;
+    return ADH_RET_CONT;
 }
 
 sub install($) {
-    return APH_RET_CONT;
+    return ADH_RET_CONT;
 }
 
 sub status() {
-    return APH_RET_CONT;
+    return ADH_RET_CONT;
 }
 
 1;
